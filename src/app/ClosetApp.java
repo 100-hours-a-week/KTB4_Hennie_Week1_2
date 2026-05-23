@@ -73,31 +73,42 @@ public class ClosetApp {
         System.out.println();
         System.out.println("=== 추천 코디 결과 ===");
 
-        showRecommendedItem("[Top]", top, "상의를 선택하지 못했습니다.");
-        showRecommendedItem("[Bottom]", bottom, "하의를 선택하지 못했습니다.");
+        top.ifPresentOrElse(
+                item -> showRecommendedItem("[Top]", item),
+                () -> showFailMessage("[Top]", "상의를 선택하지 못했습니다.")
+        );
+        bottom.ifPresentOrElse(
+                item -> showRecommendedItem("[Bottom]", item),
+                () -> showFailMessage("[Bottom]", "하의를 선택하지 못했습니다.")
+        );
 
-        if (!outer.isPresent() && weather == Weather.HOT) {
+        if (outer.isEmpty() && weather == Weather.HOT) {
             System.out.println();
             System.out.println("[Outer]");
             System.out.println("오늘은 아우터를 입지 않아도 괜찮습니다.");
         } else {
-            showRecommendedItem("[Outer]", outer, "아우터를 선택하지 못했습니다.");
+            outer.ifPresentOrElse(
+                    item -> showRecommendedItem("[Outer]", item),
+                    () -> showFailMessage("[Outer]", "아우터를 선택하지 못했습니다.")
+            );
         }
 
-        showRecommendedItem("[Shoes]", shoes, "신발을 선택하지 못했습니다.");
+        shoes.ifPresentOrElse(
+                item -> showRecommendedItem("[Shoes]", item),
+                () -> showFailMessage("[Shoes]", "신발을 선택하지 못했습니다.")
+        );
     }
 
-    private void showRecommendedItem(String title, Optional<? extends ClothingItem> item, String failMessage) {
+    private void showRecommendedItem(String title, ClothingItem item) {
         System.out.println();
         System.out.println(title);
+        item.showInfo();
+        item.wear();
+    }
 
-        if (item.isPresent()) {
-            ClothingItem clothingItem = item.get();
-            clothingItem.showInfo();
-            clothingItem.wear();
-            return;
-        }
-
+    private void showFailMessage(String title, String failMessage) {
+        System.out.println();
+        System.out.println(title);
         System.out.println(failMessage);
     }
 }
