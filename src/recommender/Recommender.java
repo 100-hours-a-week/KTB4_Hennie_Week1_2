@@ -1,5 +1,7 @@
 package recommender;
 
+import clothing.Style;
+import clothing.Weather;
 import clothing.bottom.Bottom;
 import clothing.bottom.Jeans;
 import clothing.bottom.Slacks;
@@ -19,7 +21,7 @@ import clothing.top.Top;
 
 public class Recommender {
 
-    public Top recommendTop(String weather, String style) {
+    public Top recommendTop(Weather weather, Style style) {
         // 상의 후보 목록
         Top[] tops = {
                 new TShirt(),
@@ -52,7 +54,7 @@ public class Recommender {
         return null;
     }
 
-    public Bottom recommendBottom(String weather, String style) {
+    public Bottom recommendBottom(Weather weather, Style style) {
         Bottom[] bottoms = {
                 new Jeans(),
                 new Slacks(),
@@ -80,8 +82,8 @@ public class Recommender {
         return null;
     }
 
-    public Outer recommendOuter(String weather, String style) {
-        if (weather.equals("hot")) {
+    public Outer recommendOuter(Weather weather, Style style) {
+        if (weather == Weather.HOT) {
             return null;
         }
 
@@ -111,7 +113,8 @@ public class Recommender {
 
         return null;
     }
-    public Shoes recommendShoes(String weather, String style) {
+
+    public Shoes recommendShoes(Weather weather, Style style) {
         Shoes[] shoesList = {
                 new Sneakers(),
                 new MaryJaneShoes(),

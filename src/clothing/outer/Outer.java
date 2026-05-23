@@ -1,11 +1,13 @@
 package clothing.outer;
 
 import clothing.ClothingItem;
+import clothing.Style;
+import clothing.Weather;
 
 public class Outer extends ClothingItem {
     private String thickness;
 
-    public Outer(String name, String style, String weather, String thickness) {
+    public Outer(String name, Style style, Weather weather, String thickness) {
         super(name, style, weather);
         this.thickness = thickness;
     }

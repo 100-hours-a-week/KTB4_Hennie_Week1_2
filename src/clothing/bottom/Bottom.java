@@ -1,11 +1,13 @@
 package clothing.bottom;
 
 import clothing.ClothingItem;
+import clothing.Style;
+import clothing.Weather;
 
 public class Bottom extends ClothingItem {
     private String fit;
 
-    public Bottom(String name, String style, String weather, String fit) {
+    public Bottom(String name, Style style, Weather weather, String fit) {
         super(name, style, weather);
         this.fit = fit;
     }

@@ -1,6 +1,8 @@
 package app;
 
 import clothing.ClothingItem;
+import clothing.Style;
+import clothing.Weather;
 import clothing.bottom.Bottom;
 import clothing.outer.Outer;
 import clothing.shoes.Shoes;
@@ -10,10 +12,6 @@ import recommender.Recommender;
 import java.util.Scanner;
 
 public class ClosetApp {
-    // 프로그램에서 허용되는 입력값 목록 (상수로 이용)
-    private static final String[] WEATHER_OPTIONS = {"hot", "warm", "cool", "cold", "windy"};
-    private static final String[] STYLE_OPTIONS = {"casual", "formal", "sporty"};
-
     private Recommender recommender;
     private Scanner scanner;
 
@@ -25,8 +23,8 @@ public class ClosetApp {
     public void start() {
         System.out.println("=== 옷장 코디 추천 프로그램 ===");
 
-        String weather = askWeather();
-        String style = askStyle();
+        Weather weather = askWeather();
+        Style style = askStyle();
 
         showResult(weather, style);
     }
@@ -68,17 +66,7 @@ public class ClosetApp {
         }
     }
 
-    private boolean isValidOption(String input, String[] options) {
-        for (String option : options) {
-            if (option.equals(input)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public void showResult(String weather, String style) {
+    public void showResult(Weather weather, Style style) {
         Top top = recommender.recommendTop(weather, style);
         Bottom bottom = recommender.recommendBottom(weather, style);
         Outer outer = recommender.recommendOuter(weather, style);
@@ -90,7 +78,7 @@ public class ClosetApp {
         showRecommendedItem("[Top]", top, "상의를 선택하지 못했습니다.");
         showRecommendedItem("[Bottom]", bottom, "하의를 선택하지 못했습니다.");
 
-        if (outer == null && weather.equals("hot")) {
+        if (outer == null && weather == Weather.HOT) {
             System.out.println();
             System.out.println("[Outer]");
             System.out.println("오늘은 아우터를 입지 않아도 괜찮습니다.");

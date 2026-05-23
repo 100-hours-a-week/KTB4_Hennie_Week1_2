@@ -2,10 +2,10 @@ package clothing;
 
 public class ClothingItem {
     private String name;
-    private String style;
-    private String weather;
+    private Style style;
+    private Weather weather;
 
-    public ClothingItem(String name, String style, String weather) {
+    public ClothingItem(String name, Style style, Weather weather) {
         this.name = name;
         this.style = style;
         this.weather = weather;
@@ -13,8 +13,8 @@ public class ClothingItem {
 
     public void showInfo() {
         System.out.println("이름: " + name);
-        System.out.println("스타일: " + style);
-        System.out.println("추천 날씨: " + weather);
+        System.out.println("스타일: " + style.getValue());
+        System.out.println("추천 날씨: " + weather.getValue());
     }
 
     public void wear() {
@@ -22,16 +22,16 @@ public class ClothingItem {
     }
 
     // 옷 추천 방식 (1순위: 스타일과 날씨가 맞을 때, 2순위: 날씨가 맞을 때, 3순위: 스타일이 맞을 때)
-    public boolean matches(String weather, String style) {
-        return this.weather.equals(weather) && this.style.equals(style);
+    public boolean matches(Weather weather, Style style) {
+        return this.weather == weather && this.style == style;
     }
 
-    public boolean matchesWeather(String weather) {
-        return this.weather.equals(weather);
+    public boolean matchesWeather(Weather weather) {
+        return this.weather == weather;
     }
 
-    public boolean matchesStyle(String style) {
-        return this.style.equals(style);
+    public boolean matchesStyle(Style style) {
+        return this.style == style;
     }
 
     public String getName() {
