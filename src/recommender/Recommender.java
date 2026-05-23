@@ -3,20 +3,8 @@ package recommender;
 import clothing.Style;
 import clothing.Weather;
 import clothing.bottom.Bottom;
-import clothing.bottom.Jeans;
-import clothing.bottom.Slacks;
-import clothing.bottom.Training;
-import clothing.outer.Cardigan;
-import clothing.outer.Coat;
 import clothing.outer.Outer;
-import clothing.outer.Windbreak;
-import clothing.shoes.Crocs;
-import clothing.shoes.MaryJaneShoes;
 import clothing.shoes.Shoes;
-import clothing.shoes.Sneakers;
-import clothing.top.Blouse;
-import clothing.top.Hoodie;
-import clothing.top.TShirt;
 import clothing.top.Top;
 
 public class Recommender {
@@ -24,9 +12,9 @@ public class Recommender {
     public Top recommendTop(Weather weather, Style style) {
         // 상의 후보 목록
         Top[] tops = {
-                new TShirt(),
-                new Blouse(),
-                new Hoodie()
+                new Top("TShirt", Style.CASUAL, Weather.HOT, "short sleeve"),
+                new Top("Blouse", Style.FORMAL, Weather.WARM, "long sleeve"),
+                new Top("Hoodie", Style.SPORTY, Weather.COOL, "long sleeve")
         };
 
         // 1순위: 날씨와 스타일이 모두 맞는 옷
@@ -56,28 +44,28 @@ public class Recommender {
 
     public Bottom recommendBottom(Weather weather, Style style) {
         Bottom[] bottoms = {
-                new Jeans(),
-                new Slacks(),
-                new Training()
+                new Bottom("Jeans", Style.CASUAL, Weather.COOL, "wide fit"),
+                new Bottom("Slacks", Style.FORMAL, Weather.WARM, "straight fit"),
+                new Bottom("Training Pants", Style.SPORTY, Weather.COOL, "loose fit")
         };
 
         for (Bottom bottom : bottoms) {
             if (bottom.matches(weather, style)) {
-            return bottom;
+                return bottom;
         }
     }
 
         for (Bottom bottom : bottoms) {
-        if (bottom.matchesWeather(weather)) {
-            return bottom;
-        }
+            if (bottom.matchesWeather(weather)) {
+                return bottom;
+            }
     }
 
         for (Bottom bottom : bottoms) {
-        if (bottom.matchesStyle(style)) {
-            return bottom;
+            if (bottom.matchesStyle(style)) {
+                return bottom;
+            }
         }
-    }
 
         return null;
     }
@@ -88,9 +76,9 @@ public class Recommender {
         }
 
         Outer[] outers = {
-                new Coat(),
-                new Cardigan(),
-                new Windbreak()
+                new Outer("Coat", Style.FORMAL, Weather.COLD, "thick"),
+                new Outer("Cardigan", Style.CASUAL, Weather.COOL, "medium"),
+                new Outer("Windbreak", Style.SPORTY, Weather.WINDY, "thin")
         };
 
         for (Outer outer : outers) {
@@ -116,9 +104,9 @@ public class Recommender {
 
     public Shoes recommendShoes(Weather weather, Style style) {
         Shoes[] shoesList = {
-                new Sneakers(),
-                new MaryJaneShoes(),
-                new Crocs()
+                new Shoes("Sneakers", Style.CASUAL, Weather.COOL),
+                new Shoes("Mary Jane Shoes", Style.FORMAL, Weather.WARM),
+                new Shoes("Crocs", Style.SPORTY, Weather.HOT)
         };
 
         for (Shoes shoes : shoesList) {
