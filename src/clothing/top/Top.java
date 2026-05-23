@@ -5,7 +5,7 @@ import clothing.Style;
 import clothing.Weather;
 
 public class Top extends ClothingItem {
-    private String sleeveType;
+    private final String sleeveType;
 
     public Top(String name, Style style, Weather weather, String sleeveType) {
         super(name, style, weather);

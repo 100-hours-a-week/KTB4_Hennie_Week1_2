@@ -12,8 +12,8 @@ import recommender.Recommender;
 import java.util.Scanner;
 
 public class ClosetApp {
-    private Recommender recommender;
-    private Scanner scanner;
+    private final Recommender recommender;
+    private final Scanner scanner;
 
     public ClosetApp() {
         recommender = new Recommender();
@@ -23,8 +23,8 @@ public class ClosetApp {
     public void start() {
         System.out.println("=== 옷장 코디 추천 프로그램 ===");
 
-        Weather weather = askWeather();
-        Style style = askStyle();
+        final Weather weather = askWeather();
+        final Style style = askStyle();
 
         showResult(weather, style);
     }

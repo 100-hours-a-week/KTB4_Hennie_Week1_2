@@ -1,9 +1,9 @@
 package clothing;
 
 public class ClothingItem {
-    private String name;
-    private Style style;
-    private Weather weather;
+    private final String name;
+    private final Style style;
+    private final Weather weather;
 
     public ClothingItem(String name, Style style, Weather weather) {
         this.name = name;
