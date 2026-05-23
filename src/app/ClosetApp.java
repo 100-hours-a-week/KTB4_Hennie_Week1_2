@@ -29,36 +29,33 @@ public class ClosetApp {
         showResult(weather, style);
     }
 
-    public String askWeather() {
+    public Weather askWeather() {
         System.out.println();
-        return askOption(
-                "오늘 날씨를 입력하세요.",
-                "hot / warm / cool / cold / windy 중 하나를 입력하세요.",
-                "날씨: ",
-                WEATHER_OPTIONS
-        );
-    }
-
-    public String askStyle() {
-        System.out.println();
-        return askOption(
-                "원하는 스타일을 입력하세요.",
-                "casual / formal / sporty 중 하나를 입력하세요.",
-                "스타일: ",
-                STYLE_OPTIONS
-        );
-    }
-
-    private String askOption(String title, String guide, String prompt, String[] options) {
         while (true) {
-            System.out.println(title);
-            System.out.println(guide);
-            System.out.print(prompt);
+            System.out.println("오늘 날씨를 입력하세요.");
+            System.out.println(OptionSelector.listingOptions(Weather.values()) + " 중 하나를 입력하세요.");
+            System.out.print("날씨: ");
 
-            // 입력값 검증 (유효한 선택지만 남김)
-            String input = scanner.nextLine().trim().toLowerCase();
-            if (isValidOption(input, options)) {
-                return input;
+            Weather weather = OptionSelector.fromInput(scanner.nextLine(), Weather.values());
+            if (weather != null) {
+                return weather;
+            }
+
+            System.out.println("잘못된 입력입니다. 선택지 중 하나를 다시 입력해주세요.");
+            System.out.println();
+        }
+    }
+
+    public Style askStyle() {
+        System.out.println();
+        while (true) {
+            System.out.println("원하는 스타일을 입력하세요.");
+            System.out.println(OptionSelector.listingOptions(Style.values()) + " 중 하나를 입력하세요.");
+            System.out.print("스타일: ");
+
+            Style style = OptionSelector.fromInput(scanner.nextLine(), Style.values());
+            if (style != null) {
+                return style;
             }
 
             System.out.println("잘못된 입력입니다. 선택지 중 하나를 다시 입력해주세요.");
