@@ -2,18 +2,20 @@ package app;
 
 import clothing.SelectableOption;
 
+import java.util.Optional;
+
 public class OptionSelector {
     // 입력값 검증 (유효한 선택지만 남김)
-    public static <T extends Enum<T> & SelectableOption> T fromInput(String input, T[] options) {
+    public static <T extends Enum<T> & SelectableOption> Optional<T> fromInput(String input, T[] options) {
         String validatedInputValue = input.trim().toLowerCase();
 
         for (T option : options) {
             if (option.getValue().equals(validatedInputValue)) {
-                return option;
+                return Optional.of(option);
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
     // 선택지 나열용
