@@ -1,5 +1,8 @@
 package clothing;
 
+import option.Style;
+import option.Weather;
+
 public class ClothingItem {
     private final String name;
     private final Style style;

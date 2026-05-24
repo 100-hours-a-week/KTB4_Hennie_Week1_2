@@ -1,8 +1,8 @@
 package clothing.top;
 
 import clothing.ClothingItem;
-import clothing.Style;
-import clothing.Weather;
+import option.Style;
+import option.Weather;
 
 public class Top extends ClothingItem {
     private final String sleeveType;

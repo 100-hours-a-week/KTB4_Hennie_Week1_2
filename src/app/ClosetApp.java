@@ -1,12 +1,13 @@
 package app;
 
 import clothing.ClothingItem;
-import clothing.Style;
-import clothing.Weather;
+import option.Style;
+import option.Weather;
 import clothing.bottom.Bottom;
 import clothing.outer.Outer;
 import clothing.shoes.Shoes;
 import clothing.top.Top;
+import option.OptionSelector;
 import recommender.Recommender;
 
 import java.util.Optional;

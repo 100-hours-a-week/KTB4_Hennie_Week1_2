@@ -1,8 +1,8 @@
 package clothing.outer;
 
 import clothing.ClothingItem;
-import clothing.Style;
-import clothing.Weather;
+import option.Style;
+import option.Weather;
 
 public class Outer extends ClothingItem {
     private final String thickness;

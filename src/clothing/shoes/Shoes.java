@@ -1,8 +1,8 @@
 package clothing.shoes;
 
 import clothing.ClothingItem;
-import clothing.Style;
-import clothing.Weather;
+import option.Style;
+import option.Weather;
 
 public class Shoes extends ClothingItem {
 

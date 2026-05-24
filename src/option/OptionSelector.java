@@ -1,6 +1,4 @@
-package app;
-
-import clothing.SelectableOption;
+package option;
 
 import java.util.Optional;
 

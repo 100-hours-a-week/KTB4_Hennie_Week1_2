@@ -1,4 +1,4 @@
-package clothing;
+package option;
 
 public enum Style implements SelectableOption {
     CASUAL("casual"),

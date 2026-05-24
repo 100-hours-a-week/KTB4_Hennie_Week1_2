@@ -1,8 +1,8 @@
 package clothing.bottom;
 
 import clothing.ClothingItem;
-import clothing.Style;
-import clothing.Weather;
+import option.Style;
+import option.Weather;
 
 public class Bottom extends ClothingItem {
     private final String fit;

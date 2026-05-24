@@ -1,4 +1,4 @@
-package clothing;
+package option;
 
 public enum Weather implements SelectableOption {
     HOT("hot"),
