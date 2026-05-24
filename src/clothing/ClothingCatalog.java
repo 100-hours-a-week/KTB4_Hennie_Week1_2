@@ -1,4 +1,4 @@
-package recommender;
+package clothing;
 
 import option.Style;
 import option.Weather;
