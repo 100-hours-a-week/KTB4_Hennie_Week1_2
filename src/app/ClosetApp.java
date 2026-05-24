@@ -1,14 +1,12 @@
 package app;
 
-import clothing.ClothingItem;
 import option.Style;
 import option.Weather;
-import clothing.bottom.Bottom;
-import clothing.outer.Outer;
-import clothing.shoes.Shoes;
-import clothing.top.Top;
 import option.OptionSelector;
 import recommender.Recommender;
+import user.User;
+import user.UserRecommendationTask;
+import user.UserRequest;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -16,19 +14,48 @@ import java.util.Scanner;
 public class ClosetApp {
     private final Recommender recommender;
     private final Scanner scanner;
+    private final Object printLock;
 
     public ClosetApp() {
         recommender = new Recommender();
         scanner = new Scanner(System.in);
+        printLock = new Object();
     }
 
     public void start() {
         System.out.println("=== 옷장 코디 추천 프로그램 ===");
 
-        final Weather weather = askWeather();
-        final Style style = askStyle();
+        UserRequest olderSisterRequest = askUserRequest(User.OLDER_SISTER);
+        UserRequest youngerSiblingRequest = askUserRequest(User.YOUNGER_SISTER);
 
-        showResult(weather, style);
+        Thread olderSisterThread = new Thread(
+                new UserRecommendationTask(olderSisterRequest, recommender, printLock),
+                User.OLDER_SISTER.getDisplayName()
+        );
+        Thread youngerSiblingThread = new Thread(
+                new UserRecommendationTask(youngerSiblingRequest, recommender, printLock),
+                User.YOUNGER_SISTER.getDisplayName()
+        );
+
+        olderSisterThread.start();
+        youngerSiblingThread.start();
+
+        try {
+            olderSisterThread.join();
+            youngerSiblingThread.join();
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            System.out.println("추천 작업이 중단되었습니다.");
+        }
+    }
+
+    private UserRequest askUserRequest(User user) {
+        System.out.println();
+        System.out.println("[" + user.getDisplayName() + " 입력]");
+        Weather weather = askWeather();
+        Style style = askStyle();
+
+        return new UserRequest(user, weather, style);
     }
 
     public Weather askWeather() {
@@ -65,51 +92,4 @@ public class ClosetApp {
         }
     }
 
-    public void showResult(Weather weather, Style style) {
-        Optional<Top> top = recommender.recommendTop(weather, style);
-        Optional<Bottom> bottom = recommender.recommendBottom(weather, style);
-        Optional<Outer> outer = recommender.recommendOuter(weather, style);
-        Optional<Shoes> shoes = recommender.recommendShoes(weather, style);
-
-        System.out.println();
-        System.out.println("=== 추천 코디 결과 ===");
-
-        top.ifPresentOrElse(
-                item -> showRecommendedItem("[Top]", item),
-                () -> showFailMessage("[Top]", "상의를 선택하지 못했습니다.")
-        );
-        bottom.ifPresentOrElse(
-                item -> showRecommendedItem("[Bottom]", item),
-                () -> showFailMessage("[Bottom]", "하의를 선택하지 못했습니다.")
-        );
-
-        if (outer.isEmpty() && weather == Weather.HOT) {
-            System.out.println();
-            System.out.println("[Outer]");
-            System.out.println("오늘은 아우터를 입지 않아도 괜찮습니다.");
-        } else {
-            outer.ifPresentOrElse(
-                    item -> showRecommendedItem("[Outer]", item),
-                    () -> showFailMessage("[Outer]", "아우터를 선택하지 못했습니다.")
-            );
-        }
-
-        shoes.ifPresentOrElse(
-                item -> showRecommendedItem("[Shoes]", item),
-                () -> showFailMessage("[Shoes]", "신발을 선택하지 못했습니다.")
-        );
-    }
-
-    private void showRecommendedItem(String title, ClothingItem item) {
-        System.out.println();
-        System.out.println(title);
-        item.showInfo();
-        item.wear();
-    }
-
-    private void showFailMessage(String title, String failMessage) {
-        System.out.println();
-        System.out.println(title);
-        System.out.println(failMessage);
-    }
 }
